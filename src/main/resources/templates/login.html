@@ -31,16 +31,17 @@
             
         }
         .login-container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgb(243 243 243);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             width: 300px;
             text-align: center;
             margin-top: 20px;
+            height: fit-content;
         }
         input[type="text"], input[type="password"] {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -53,7 +54,9 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            width: 70%;
         }
         button:hover {
             background-color: #444;
@@ -62,32 +65,51 @@
             max-width: 100px;
             height: auto;
         }
+
+        .main-container{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            background-image: url('/images/logo_d2.png');
+             /* opacity: 0.6; */
+            height: 100%;
+            align-items: center;
+        }
+
+        .form-login{
+            opacity: 1 !important;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        
-        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
-        
-        <form th:action="@{/login}" method="post">
-            <div class="form-group">
-                <label for="username">Usuário:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+    <div class="main-container">
+        <div class="login-container">
+            <h2>Login</h2>
             
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <button type="submit">Entrar</button>
-        </form>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
 
-        <div class="mt-3 text-center">
-            <a th:href="@{/registro}" class="btn btn-secondary">Registrar-se</a>
+            <div class="form-login">
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+            
+            <div class="mt-3 text-center">
+                <a th:href="@{/registro}" class="btn btn-secondary">Registrar-se</a>
+            </div>
         </div>
     </div>
+    
 </body>
 </html>
