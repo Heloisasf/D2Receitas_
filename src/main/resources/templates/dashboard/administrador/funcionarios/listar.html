@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Lista de Funcionários</title>
     <meta charset="UTF-8">
@@ -21,7 +22,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 20px;
+            padding: 10px 20px;
+        }
+
+        .logo img {
+            height: 40px;
         }
 
         main {
@@ -137,49 +142,51 @@
         }
     </style>
 </head>
+
 <body>
     <header>
-            <div class="logo">
-                <img src="logo.png" alt="Logo">
+        <div class="logo">
+            <img src="/D2Receitas_/src/main/resources/static/images/logo_d2.png" alt="Logo">
         </div>
     </header>
     <main>
-    <h1>Funcionários</h1>
-    <a href="/dashboard/administrador/funcionarios/adicionar" class="add-btn">+</a>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Nome Fantasia</th>
-                <th>Nome</th>
-                <th>Cargo</th>
-                <th>RG</th>
-                <th>Data Admissão</th>
-                <th>Salário</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="funcionario : ${funcionarios}">
-                <td th:text="${funcionario.nomeFantasia}"></td>
-                <td th:text="${funcionario.nomeCompleto}"></td>
-                <td th:text="${funcionario.role.nome}"></td>
-                <td th:text="${funcionario.rg}"></td>
-                <td th:text="${#temporals.format(funcionario.dataAdmissao, 'dd/MM/yyyy')}"></td>
-                <td th:text="${#numbers.formatDecimal(funcionario.salario, 1, 2)}"></td>
-                <td>
-                    <a th:href="@{/dashboard/administrador/funcionarios/editar/{id}(id=${funcionario.id})}" 
-                       class="btn-edit">Editar</a>
-                    <a th:href="@{/dashboard/administrador/funcionarios/excluir/{id}(id=${funcionario.id})}" 
-                       class="btn-delete"
-                       onclick="return confirm('Tem certeza que deseja excluir este funcionário?')">Excluir</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <a href="/dashboard/administrador" >Voltar ao Dashboard</a>
+        <h1>Funcionários</h1>
+        <a href="/dashboard/administrador/funcionarios/adicionar" class="add-btn">+</a>
 
-</main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>RG</th>
+                    <th>Data Admissão</th>
+                    <th>Salário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="funcionario : ${funcionarios}">
+                    <td th:text="${funcionario.nomeFantasia}"></td>
+                    <td th:text="${funcionario.nomeCompleto}"></td>
+                    <td th:text="${funcionario.role.nome}"></td>
+                    <td th:text="${funcionario.rg}"></td>
+                    <td th:text="${#temporals.format(funcionario.dataAdmissao, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#numbers.formatDecimal(funcionario.salario, 1, 2)}"></td>
+                    <td>
+                        <a th:href="@{/dashboard/administrador/funcionarios/editar/{id}(id=${funcionario.id})}"
+                            class="btn-edit">Editar</a>
+                        <a th:href="@{/dashboard/administrador/funcionarios/excluir/{id}(id=${funcionario.id})}"
+                            class="btn-delete"
+                            onclick="return confirm('Tem certeza que deseja excluir este funcionário?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/dashboard/administrador">Voltar ao Dashboard</a>
+
+    </main>
 </body>
+
 </html>
