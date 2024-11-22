@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta</title>
+</head>
+<body>
+    <h1>Criar Conta</h1>
+    <form th:action="@{/registro}" th:object="${funcionario}" method="post">
+        <div class="form-group">
+            <input type="text" th:field="*{nomeCompleto}" class="form-control" placeholder="Nome" required>
+        </div>
+        <div class="form-group">
+            <input type="text" th:field="*{username}" class="form-control" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</body>
+</html>

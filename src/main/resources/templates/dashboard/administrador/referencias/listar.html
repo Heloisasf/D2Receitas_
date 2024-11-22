@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Referências</title>
+    <meta charset="UTF-8">
+    <style>
+        /* Copie o estilo das outras páginas de listagem */
+    </style>
+</head>
+<body>
+    <h1>Referências</h1>
+    <a href="/dashboard/administrador/referencias/adicionar" class="btn-add">Adicionar Nova Referência</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Cozinheiro</th>
+                <th>Restaurante</th>
+                <th>Telefone</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="referencia : ${referencias}">
+                <td th:text="${referencia.cozinheiro.username}"></td>
+                <td th:text="${referencia.restaurante.nome}"></td>
+                <td th:text="${referencia.restaurante.telefone}"></td>
+                <td th:text="${#temporals.format(referencia.dataInicio, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(referencia.dataFim, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:href="@{/dashboard/administrador/referencias/editar/{id}(id=${referencia.id})}">Editar</a>
+                    <a th:href="@{/dashboard/administrador/referencias/excluir/{id}(id=${referencia.id})}" 
+                       onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="/dashboard/administrador" class="btn-voltar">Voltar</a>
+</body>
+</html> 

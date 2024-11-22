@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Funcionário</title>
+    <meta charset="UTF-8">
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #f5a623;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        a[href="/dashboard/administrador/funcionarios"] {
+            display: inline-block;
+            margin-top: 20px;
+            color: #f5a623;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a[href="/dashboard/administrador/funcionarios"]:hover {
+            color: #e08a00;
+        }
+    </style>
+</head>
+<body> 
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Editar Funcionário</h1>
+        <div class="form-container">
+        <form th:action="@{/dashboard/administrador/funcionarios/editar/{id}(id=${funcionario.id})}" 
+              th:object="${funcionario}" 
+              method="post">
+            
+            <input type="hidden" th:field="*{id}">
+            
+            <h1 class="section-title">Dados de Acesso</h1>
+            
+            <div class="form-group">
+                <label for="username">Login:</label>
+                <input type="text" id="username" th:field="*{username}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Nova Senha (deixe em branco para manter a atual):</label>
+                <input type="password" id="password" th:field="*{password}">
+            </div>
+
+            <div class="form-group">
+                <label for="role">Cargo:</label>
+                <select id="role" th:field="*{role}" required>
+                    <option value="">Selecione um cargo</option>
+                    <option th:each="role : ${roles}"
+                            th:value="${role}"
+                            th:text="${role}">
+                    </option>
+                </select>
+            </div>
+
+            <h1 class="section-title">Dados Pessoais</h1>
+
+            <div class="form-group">
+                <label for="nomeCompleto">Nome Completo:</label>
+                <input type="text" id="nomeCompleto" th:field="*{nomeCompleto}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rg">RG:</label>
+                <input type="text" id="rg" th:field="*{rg}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dataAdmissao">Data de Admissão:</label>
+                <input type="date" id="dataAdmissao" th:field="*{dataAdmissao}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salário:</label>
+                <input type="number" id="salario" th:field="*{salario}" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nomeFantasia">Nome Fantasia:</label>
+                <input type="text" id="nomeFantasia" th:field="*{nomeFantasia}">
+            </div>
+
+            <button type="submit" class="save-btn">Atualizar</button>
+        </form>
+        </div>
+        
+        <a href="/dashboard/administrador/funcionarios" class="btn-voltar">Voltar</a>
+    </main>
+</body>
+</html>

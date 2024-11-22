@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Restaurantes</title>
+    <style>
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #f5a623;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .add-btn {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 40px;
+         height: 40px;
+         background-color: #f5a623;
+         color: white;
+         font-size: 24px;
+         border-radius: 6px 6px 6px 6px;
+         text-decoration: none;
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+}
+table th,
+table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #f5a623;
+}
+
+table a {
+    color: #f89d0a;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+table a:hover {
+    color: #e08a00;
+}
+
+a[href="/dashboard/administrador"] {
+    display: inline-block;
+    margin-top: 20px;
+    color: #f5a623;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a[href="/dashboard/administrador"]:hover {
+    color: #e08a00;
+}
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div> 
+        </div>
+          </header>
+<main>
+    <h1>Restaurantes</h1>
+            <input type="text" placeholder="Pesquisar...">
+            <a href="/dashboard/administrador/restaurantes/adicionar" class="add-btn">+</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="restaurante : ${restaurante}">
+                <td th:text="${restaurante.id}"></td>
+                <td th:text="${restaurante.nome}"></td>
+                <td th:text="${restaurante.telefone}"></td>
+                <td>
+                    <a th:href="@{/dashboard/administrador/restaurantes/editar/{id}(id=${restaurante.id})}">&#9998;</a>
+                    <a th:href="@{/dashboard/administrador/restaurantes/excluir/{id}(id=${restaurante.id})}"
+                       onclick="return confirm('Tem certeza que deseja excluir este restaurante?')">&#128465;</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="/dashboard/administrador">Voltar ao Dashboard</a>
+</main>
+</body>
+</html> 

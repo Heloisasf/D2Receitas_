@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Receitas</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .voltar {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minhas Receitas</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Data de Criação</th>
+                <th>Número de Porções</th>
+                <th>Inédita</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="receita : ${receitas}">
+                <td th:text="${receita.nome}"></td>
+                <td th:text="${receita.categoria}"></td>
+                <td th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${receita.numeroPorcoes}"></td>
+                <td th:text="${receita.inedita ? 'Sim' : 'Não'}"></td>
+                <td>
+                    <a th:href="@{/dashboard/cozinheiro/editar/{id}(id=${receita.id})}">Editar</a>
+                    <a th:href="@{/dashboard/cozinheiro/excluir/{id}(id=${receita.id})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="voltar">
+        <a href="/dashboard/cozinheiro">Voltar ao Dashboard</a>
+    </div>
+</body>
+</html> 

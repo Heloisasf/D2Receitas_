@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            background-color: #f5a623;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .admin-info p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 13px 13px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff8800;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .logout-btn {
+            background-color: #d9534f;
+            margin-top: 20px;
+            width: 18%;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #555;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f5a623;
+            color: white;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        table tbody tr:hover {
+            background-color: #ffe5d9;
+        }
+
+        table a {
+            color: #f89d0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        table a:hover {
+            color: #e08a00;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="header">
+        <img src="" alt="Logo do Site" class="logo">
+    </div>
+    <br>
+    <h1>Bem-vindo, Administrador (a)</h1>
+    <div class="container">
+        <div class="admin-info">
+            <p><strong>Usuário:</strong> <span th:text="${funcionario.nomeCompleto}"></span></p>
+            <p><strong>Data de Criação:</strong>
+                <span th:if="${funcionario.createdAt != null}"
+                    th:text="${#temporals.format(funcionario.createdAt, 'dd/MM/yyyy HH:mm')}">
+                </span>
+            </p>
+        </div>
+
+        <div class="button-container">
+            <a href="/dashboard/administrador/cargos"><button>Cargos</button></a>
+            <a href="/dashboard/administrador/categorias"><button>Categorias</button></a>
+            <a href="/dashboard/administrador/funcionarios"><button>Funcionários</button></a>
+            <a href="/dashboard/administrador/restaurantes"><button>Restaurantes</button></a>
+            <a href="/dashboard/administrador/ingredientes"><button>Ingredientes</button></a>
+            <a href="/dashboard/administrador/medidas"><button>Medidas</button></a>
+            <a href="/dashboard/administrador/referencias"><button>Referências</button></a>
+            <a href="/dashboard/administrador/livros"><button>Livros</button></a>
+            <a href="/dashboard/administrador/parametros"><button>Parâmetro</button></a>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">Sair</button>
+        </form>
+    </div>
+</body>
+
+</html>
