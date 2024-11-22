@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Referência</title>
+    <title>Adicionar Medida</title>
     <style>
         * {
             margin: 0;
@@ -58,7 +59,7 @@
             display: block;
         }
 
-        input[type="date"],select,
+        input[type="text"],
         textarea {
             width: 100%;
             padding: 10px;
@@ -78,7 +79,8 @@
             font-size: 16px;
             cursor: pointer;
         }
-        a[href="/dashboard/administrador/referencias"] {
+
+        a[href="/dashboard/administrador/medidas"] {
             display: inline-block;
             margin-top: 20px;
             color: #f5a623;
@@ -86,56 +88,33 @@
             text-decoration: none;
         }
 
-        a[href="/dashboard/administrador/referencias"]:hover {
+        a[href="/dashboard/administrador/medidas"]:hover {
             color: #e08a00;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <div class="logo">
-            <img src="/src/main/resources/templates/dashboard/logoD2.png" alt="Logo">
+            <div class="logo">
+                <img src="D.png" alt="Logo">
         </div>
     </header>
     <main>
-        <h1>Editar Referência</h1>
+        <h1>Adicionar Medida</h1>
         <div class="form-container">
-            <form th:action="@{/dashboard/administrador/referencias/editar/{id}(id=${referencia.id})}" 
-                  method="post" 
-                  th:object="${referencia}">
-                
-                <input type="hidden" th:field="*{id}">
+            <form th:action="@{/dashboard/administrador/medidas/adicionar}" method="post"
+                th:object="${medida}">
 
-                <label for="cozinheiro">Cozinheiro:</label>
-                <select id="cozinheiro" th:field="*{cozinheiro}" required>
-                    <option value="">Selecione um cozinheiro</option>
-                    <option th:each="cozinheiro : ${cozinheiros}"
-                            th:value="${cozinheiro.id}"
-                            th:text="${cozinheiro.username}"
-                            th:selected="${cozinheiro.id == referencia.cozinheiro.id}">
-                    </option>
-                </select>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
 
-                <label for="restaurante">Restaurante:</label>
-                <select id="restaurante" th:field="*{restaurante}" required>
-                    <option value="">Selecione um restaurante</option>
-                    <option th:each="restaurante : ${restaurantes}"
-                            th:value="${restaurante.id}"
-                            th:text="${restaurante.nome + ' - Tel: ' + restaurante.telefone}"
-                            th:selected="${restaurante.id == referencia.restaurante.id}">
-                    </option>
-                </select>
-
-                <label for="dataInicio">Data de Início:</label>
-                <input type="date" id="dataInicio" th:field="*{dataInicio}" required>
-
-                <label for="dataFim">Data de Fim:</label>
-                <input type="date" id="dataFim" th:field="*{dataFim}" required>
-
-                <button type="submit" class="save-btn">Salvar Alterações</button>
+                <button type="submit" class="save-btn">Salvar</button>
             </form>
         </div>
-        <a href="/dashboard/administrador/referencias" class="voltar-link">Voltar</a>
+        <br>
+        <a href="/dashboard/administrador/medidas">Voltar</a>
     </main>
 </body>
-</html> 
+
+</html>

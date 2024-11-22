@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Referências</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medidas</title>
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -125,48 +125,38 @@
         a[href="/dashboard/administrador"]:hover {
             color: #e08a00;
         }
+
     </style>
 </head>
-
 <body>
     <header>
-        <div class="logo">
-            <img src="/src/main/resources/templates/dashboard/logoD2.png" alt="Logo">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
         </div>
     </header>
     <main>
-        <h1>Referências</h1>
-        <a href="/dashboard/administrador/referencias/adicionar" class="add-btn">+</a>
-
+        <h1>Medidas</h1>
+        <a href="/dashboard/administrador/medidas/adicionar" class="add-btn">+</a>
         <table>
             <thead>
                 <tr>
-                    <th>Cozinheiro</th>
-                    <th>Restaurante</th>
-                    <th>Telefone</th>
-                    <th>Data Início</th>
-                    <th>Data Fim</th>
+                    <th>Nome</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="referencia : ${referencias}">
-                    <td th:text="${referencia.cozinheiro.username}"></td>
-                    <td th:text="${referencia.restaurante.nome}"></td>
-                    <td th:text="${referencia.restaurante.telefone}"></td>
-                    <td th:text="${#temporals.format(referencia.dataInicio, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${#temporals.format(referencia.dataFim, 'dd/MM/yyyy')}"></td>
-                    <td>
-                        <a th:href="@{/dashboard/administrador/referencias/editar/{id}(id=${referencia.id})}">Editar</a>
-                        <a th:href="@{/dashboard/administrador/referencias/excluir/{id}(id=${referencia.id})}"
-                            onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                <tr th:each="medida : ${medidas}">
+                    <td th:text="${medida.nome}"></td>
+                    <td class="actions">
+                        <a th:href="@{/dashboard/administrador/medidas/editar/{id}(id=${medida.id})}">Editar</a>
+                        <a th:href="@{/dashboard/administrador/medidas/excluir/{id}(id=${medida.id})}"
+                           onclick="return confirm('Tem certeza que deseja excluir esta medida?')">Excluir</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <a href="/dashboard/administrador" class="btn-voltar">Voltar</a>
+        <br>
+        <a href="/dashboard/administrador">Voltar ao Dashboard</a>
     </main>
 </body>
-
-</html>
+</html> 
