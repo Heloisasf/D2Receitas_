@@ -134,7 +134,7 @@
             color: #e08a00;
         }
 
-        a[href="/dashboard/cozinheiro"] {
+        a[href="/dashboard/degustador"] {
             display: inline-block;
             margin-top: 20px;
             color: #f5a623;
@@ -142,7 +142,7 @@
             text-decoration: none;
         }
 
-        a[href="/dashboard/cozinheiro"]:hover {
+        a[href="/dashboard/degustador"]:hover {
             color: #e08a00;
         }
     </style>
@@ -155,7 +155,7 @@
         </div>
     </header>
     <main>
-        <h1>Minhas Receitas</h1>
+        <h1>Receitas disponíveis</h1>
         <div class="form-group">
         <input type="text" placeholder="Buscar receitas...">
         <label for="category">Categoria</label>
@@ -169,30 +169,23 @@
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Categoria</th>
-                    <th>Data de Criação</th>
-                    <th>Número de Porções</th>
-                    <th>Inédita</th>
+                    <th>Descrição</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="receita : ${receitas}">
                     <td th:text="${receita.nome}"></td>
-                    <td th:text="${receita.categoria}"></td>
-                    <td th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
-                    <td th:text="${receita.numeroPorcoes}"></td>
-                    <td th:text="${receita.inedita ? 'Sim' : 'Não'}"></td>
+                    <td th:text="${receita.descricao}"></td>
                     <td>
-                        <a th:href="@{/dashboard/cozinheiro/editar/{id}(id=${receita.id})}">Editar</a>
-                        <a th:href="@{/dashboard/cozinheiro/excluir/{id}(id=${receita.id})}">Excluir</a>
+                        <a th:href="@{/dashboard/cozinheiro/editar/{id}(id=${receita.id})}">+</a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="voltar">
-            <a href="/dashboard/cozinheiro">Voltar ao Dashboard</a>
+            <a href="/dashboard/degustador">Voltar ao Dashboard</a>
         </div>
     </main>
 </body>
