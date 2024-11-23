@@ -95,9 +95,11 @@
 
 <body>
     <header>
+        <a href="/dashboard/administrador">
             <div class="logo">
-                <img src="/src/main/resources/static/images/logo_d2.png" alt="Logo">
-        </div>
+                <img src="./../../../../images/logo_d2.png" alt="Logo">
+            </div>
+        </a>
     </header>
     <main>
         <h1>Editar Cargo</h1>
@@ -108,12 +110,12 @@
                 <input type="hidden" th:field="*{id}">
 
                 <div>
-                    <label for="nome">Nome:</label>
+                    <label for="nome"><b>Nome do Cargo:</b></label>
                     <input type="text" id="nome" th:field="*{nome}" required>
                 </div>
 
                 <div>
-                    <label for="descricao">Descrição:</label>
+                    <label for="descricao"><b>Descrição do Cargo:</b></label>
                     <textarea id="descricao" th:field="*{descricao}" required></textarea>
                 </div>
 
