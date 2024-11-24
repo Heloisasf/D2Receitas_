@@ -226,23 +226,21 @@
         </div>
     </main>
     <script>
-    document.querySelector('.add-ingrediente').addEventListener('click', function () {
-    const template = document.getElementById('ingredient-template');
-    const container = document.getElementById('ingredientes-container');
+        document.querySelector('.add-ingrediente').addEventListener('click', function () {
+            const template = document.getElementById('ingredient-template');
+            const container = document.getElementById('ingredientes-container');
 
-    // Clona o template oculto
-    const newIngredient = template.children[0].cloneNode(true);
+            // Clona o template oculto
+            const newIngredient = template.children[0].cloneNode(true);
 
-    // Adiciona o novo ingrediente ao container
-    container.appendChild(newIngredient);
+            // Adiciona o novo ingrediente ao container
+            container.appendChild(newIngredient);
 
-    // Adiciona funcionalidade para remover o campo
-    newIngredient.querySelector('.remover-ingrediente').addEventListener('click', function () {
-        container.removeChild(newIngredient);
-    });
-});
-
-
+            // Adiciona funcionalidade para remover o campo
+            newIngredient.querySelector('.remover-ingrediente').addEventListener('click', function () {
+                container.removeChild(newIngredient);
+            });
+        });
 </script>
 </body>
 
