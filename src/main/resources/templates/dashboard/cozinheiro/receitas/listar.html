@@ -179,7 +179,7 @@
             <tbody>
                 <tr th:each="receita : ${receitas}">
                     <td th:text="${receita.nome}"></td>
-                    <td th:text="${receita.categoria.nome} - ${receita.categoria.descricao}"></td>
+                    <td th:text="${receita.categoria.nome} + ': ' + ${receita.categoria.nome}"></td>
                     <td th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${receita.qtdePorcao}"></td>
                     <td th:text="${receita.indReceitaInedita ? 'Sim' : 'Não'}"></td>
