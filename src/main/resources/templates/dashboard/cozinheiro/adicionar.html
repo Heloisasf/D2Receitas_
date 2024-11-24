@@ -74,15 +74,15 @@
     }
 
     .save-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+        width: 100%;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
     .ingredients-list {
         display: flex;
@@ -120,13 +120,12 @@
                     <label for="nome">Nome da Receita:</label>
                     <input type="text" id="nome" name="nome" required>
                 </div>
-                
+
                 <div>
                     <label for="categoria">Categoria:</label>
                     <select id="categoria" th:field="*{categoria}" required>
-                        <option th:each="categoria : ${categorias}"
-                                th:value="${categoria.id}"
-                                th:text="${categoria.nome}">
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+                            th:text="${categoria.nome}">
                         </option>
                     </select>
                 </div>
@@ -136,40 +135,43 @@
                     <textarea id="descricao" name="descricao" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Ingredientes</label>
-                    <div class="ingredients-list">
-                        <div class="ingredient-item">
-                            <select>
-                                <option>Ingrediente</option>
-                            </select>
-                            <input type="number" placeholder="Qtd">
-                            <select>
-                                <option>Medida</option>
-                            </select>
-                        </div>
-                        <button type="button" class="add-ingredient">+</button>
+                    <label for="ingrediente">Ingredientes:</label>
+                    <div class="ingredient-item">
+                        <select id="ingrediente" th:field="*{ingrediente}" required>
+                            <option th:each="ingrediente : ${ingredientes}" th:value="${ingrediente.id}"
+                                th:text="${ingrediente.nome}">
+                            </option>
+                        </select>
+                        <input type="number" placeholder="Qtd">
+                        <select>
+                            <option th:each="medida : ${medidas}" th:value="${medida.id}" th:text="${medida.nome}">
+                            </option>
+                        </select>
+                    </div>
+                    <button type="button" class="add-ingredient">+</button>
 
-                        <div>
-                            <label for="modoPreparo">Modo de Preparo:</label>
-                            <textarea id="modoPreparo" name="modoPreparo" required></textarea>
-                        </div>
+                    <div>
+                        <label for="modoPreparo">Modo de Preparo:</label>
+                        <textarea id="modoPreparo" name="modoPreparo" required></textarea>
+                    </div>
 
-                        <div>
-                            <label for="midia">Mídia:</label>
-                            <input type="file" id="midia" name="midia">
-                        </div>
+                    <div>
+                        <label for="midia">Mídia:</label>
+                        <input type="file" id="midia" name="midia">
+                    </div>
 
-                        <div>
-                            <label for="numeroPorcoes">Número de Porções:</label>
-                            <input type="number" id="numeroPorcoes" name="numeroPorcoes" required>
-                        </div>
+                    <div>
+                        <label for="numeroPorcoes">Número de Porções:</label>
+                        <input type="number" id="numeroPorcoes" name="numeroPorcoes" required>
+                    </div>
 
-                        <div>
-                            <label for="inedita">Inédita:</label>
-                            <input type="checkbox" id="inedita" name="inedita">
-                        </div>
+                    <div>
+                        <label for="inedita">Inédita:</label>
+                        <input type="checkbox" id="inedita" name="inedita">
+                    </div>
 
-                        <button type="submit" class="save-btn">Adicionar Receita</button>
+                    <button type="submit" class="save-btn">Adicionar Receita</button>
+                </div>
             </form>
         </div>
     </main>

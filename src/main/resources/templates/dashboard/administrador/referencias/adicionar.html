@@ -108,7 +108,7 @@
                     <option value="">Selecione um cozinheiro</option>
                     <option th:each="cozinheiro : ${cozinheiros}"
                             th:value="${cozinheiro.id}"
-                            th:text="${cozinheiro.nomeFantasia}">
+                            th:text="${cozinheiro.nomeCompleto}">
                     </option>
                 </select>
 
