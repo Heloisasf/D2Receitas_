@@ -9,14 +9,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.D2Receitas.model.Categoria;
 import com.D2Receitas.model.Ingrediente;
 import com.D2Receitas.model.Medida;
 import com.D2Receitas.model.Receita;
+import com.D2Receitas.model.ReceitaIngrediente;
+import com.D2Receitas.model.ReceitaIngredienteId;
 import com.D2Receitas.repository.CategoriaRepository;
 import com.D2Receitas.repository.IngredienteRepository;
 import com.D2Receitas.repository.MedidaRepository;
+import com.D2Receitas.repository.ReceitaIngredienteRepository;
 import com.D2Receitas.repository.ReceitaRepository;
 
 @Controller
@@ -35,6 +39,10 @@ public class ReceitaController {
 
     @Autowired
     private MedidaRepository medidaRepository;
+
+    @Autowired
+    private ReceitaIngredienteRepository receitaIngredienteRepository;
+    
 
     @GetMapping("/adicionar")
     public String mostrarFormularioAdicionar(Model model) {
@@ -59,12 +67,37 @@ public class ReceitaController {
         return "dashboard/cozinheiro/receitas/listar";
     }
 
-    // Adicionar a nova receita ao banco de dados
     @PostMapping("/adicionar")
-    public String adicionarReceita(@ModelAttribute Receita receita) {
-        receitaRepository.save(receita);
+    public String adicionarReceita(
+            @ModelAttribute Receita receita,
+            @RequestParam("ingredientesIds[]") List<Integer> ingredientesIds,
+            @RequestParam("quantidades[]") List<Double> quantidades,
+            @RequestParam("medidasIds[]") List<Integer> medidasIds
+    ) {
+        // Salva a receita no banco
+        Receita receitaSalva = receitaRepository.save(receita);
+
+        // Itera pelos ingredientes para salvar na tabela receita_ingredientes
+        for (int i = 0; i < ingredientesIds.size(); i++) {
+            // Cria a chave composta
+            ReceitaIngredienteId receitaIngredienteId = new ReceitaIngredienteId();
+            receitaIngredienteId.setReceitaId(receitaSalva.getIdreceita());
+            receitaIngredienteId.setIngredienteId(ingredientesIds.get(i));
+            receitaIngredienteId.setMedidaId(medidasIds.get(i));
+
+            // Cria a entidade ReceitaIngrediente
+            ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente();
+            receitaIngrediente.setId(receitaIngredienteId);
+            receitaIngrediente.setQuantidade(quantidades.get(i));
+
+            // Salva a entidade no banco
+            receitaIngredienteRepository.save(receitaIngrediente);
+        }
+
         return "redirect:/dashboard/cozinheiro/receitas";
     }
+
+
 
     // Mostrar o formulário para editar uma receita
     @GetMapping("/editar/{idreceita}")
