@@ -180,13 +180,13 @@
 					<td>
 										    <a th:href="@{/dashboard/cozinheiro/receitas/detalhes/{idreceita}(idreceita=${receita.idreceita})}" th:text="${receita.nome}"></a>
 										</td>
-                    <td th:text="${receita.categoria.nome} + ': ' + ${receita.categoria.nome}"></td>
+                    <td th:text="${receita.categoria.nome}"></td>
                     <td th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${receita.qtdePorcao}"></td>
                     <td th:text="${receita.indReceitaInedita ? 'Sim' : 'Não'}"></td>
                     <td>
                         <a th:href="@{/dashboard/cozinheiro/receitas/editar/{idreceita}(idreceita=${receita.idreceita})}">Editar</a>
-                        <a th:href="@{/dashboard/cozinheiro/editar/excluir/{idreceita}(idreceita=${receita.idreceita})}">Excluir</a>
+                        <a th:href="@{/dashboard/cozinheiro/receitas/excluir/{idreceita}(idreceita=${receita.idreceita})}">Excluir</a>
                     </td>
                 </tr>
             </tbody>
