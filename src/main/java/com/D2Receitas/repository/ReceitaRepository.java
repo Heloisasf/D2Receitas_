@@ -9,5 +9,6 @@ import com.D2Receitas.model.Receita;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
+    
 }
 

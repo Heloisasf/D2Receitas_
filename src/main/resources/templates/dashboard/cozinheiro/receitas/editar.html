@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <title>Editar Receita</title>
 </head>
 <style>
@@ -15,7 +18,6 @@
     }
 
     body {
-        padding: 20px;
         background-color: #f5f5f5;
     }
 
@@ -24,7 +26,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 20px;
+        padding: 20px 20px;
     }
 
     .logo img {
@@ -95,7 +97,7 @@
     }
 
     .add-ingredient {
-        width: 30px;
+        width: 100%;
         height: 30px;
         background-color: #fbbd04;
         color: #fff;
@@ -104,79 +106,146 @@
         font-size: 20px;
         cursor: pointer;
     }
+
+    select:invalid {
+        color: gray;
+    }
+
+    .add-ingrediente{
+        margin-bottom: 25px;
+    }
+
+    .remover-ingrediente{
+        height: fit-content;
+        margin-top: 7px;
+        margin-left: 190px;
+        margin-bottom: 20px;
+    }
 </style>
 
 <body>
     <header>
         <a href="/dashboard/administrador">
             <div class="logo">
-                <img src="./../../images/logo_d2.png" alt="Logo">
+                <img src="./../../../../images/logo_d2.png" alt="Logo">
             </div>
         </a>
     </header>
     <main>
         <h1>Editar Receita</h1>
         <div class="form-container">
-            <form action="/dashboard/cozinheiro/editar" method="post" enctype="multipart/form-data">
+            <form action="/dashboard/cozinheiro/receitas/editar" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="idreceita" th:value="${receita.idreceita}">
+                
                 <div>
-                    <label for="nome">Nome da Receita:</label>
-                    <input type="text" id="nome" name="nome" required>
+                    <label for="nome"><b>Nome da Receita:</b></label>
+                    <input type="text" id="nome" name="nome" th:value="${receita.nome}" required>
                 </div>
 
                 <div>
-                    <label for="categoria">Categoria:</label>
-                    <select id="categoria" th:field="*{categoria}" required>
-                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
-                            th:text="${categoria.nome}">
+                    <label for="categoria"><b>Categoria:</b></label>
+                    <select id="categoria" name="categoria.id" required>
+                        <option value="" disabled style="color:gray">Selecione uma Categoria</option>
+                        <option th:each="categoria : ${categorias}" 
+                                th:value="${categoria.id}" 
+                                th:text="${categoria.nome}" 
+                                th:selected="${receita.categoria?.id == categoria.id}">
                         </option>
                     </select>
                 </div>
 
                 <div>
-                    <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" name="descricao" required></textarea>
+                    <label for="descricao"><b>Descrição:</b></label>
+                    <textarea id="descricao" name="descricao" required th:text="${receita.descricao}"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <label for="ingrediente">Ingredientes:</label>
-                    <div class="ingredient-item">
-                        <select id="ingrediente" th:field="*{ingrediente}" required>
-                            <option th:each="ingrediente : ${ingredientes}" th:value="${ingrediente.id}"
-                                th:text="${ingrediente.nome}">
-                            </option>
-                        </select>
-                        <input type="number" placeholder="Qtd">
-                        <select>
-                            <option th:each="medida : ${medidas}" th:value="${medida.id}" th:text="${medida.nome}">
-                            </option>
-                        </select>
-                    </div>
-                    <button type="button" class="add-ingredient">+</button>
-
-                    <div>
-                        <label for="modoPreparo">Modo de Preparo:</label>
-                        <textarea id="modoPreparo" name="modoPreparo" required></textarea>
-                    </div>
-
-                    <div>
-                        <label for="midia">Mídia:</label>
-                        <input type="file" id="midia" name="midia">
+                    <div class="ingredientes-container" id="ingredientes-container" th:data-ingredientes="${ingredientes}" th:data-medidas="${medidas}">
+                        
+                        <label for="ingrediente"><b>Ingredientes:</b></label>
+                        <div class="ingrediente-select">
+                            <select id="ingredientesIds[]" name="ingredientesIds[]" th:field="*{ingredientes}"required>
+                                <option value="" disabled selected style="color:gray">Selecione um Ingrediente</option>
+                                <option th:each="ingrediente : ${ingredientes}" th:value="${ingrediente.id}"
+                                    th:text="${ingrediente.nome}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="ingredient-item">
+                            <input type="number" name="quantidades[]" placeholder="Qtd" th:text="${quantidades}">
+                            <select name="medidasIds[]" required th:field="*{medidas}">
+                                <option value="" disabled selected style="color:gray">Selecione uma Medida</option>
+                                <option th:each="medida : ${medidas}" th:value="${medida.id}" th:text="${medida.nome}">
+                                </option>
+                            </select>
+                        </div>
+                        <button type="button" class="add-ingrediente btn btn-success">Adicionar Ingrediente +</button>
                     </div>
 
                     <div>
-                        <label for="qtdePorcao">Número de Porções:</label>
-                        <input type="number" id="qtdePorcao" name="qtdePorcao" required>
+                        <label for="modoPreparo"><b>Modo de Preparo:</b></label>
+                        <textarea id="modoPreparo" name="modoPreparo" required th:text="${receita.modoPreparo}"></textarea>
                     </div>
-
+    
                     <div>
-                        <label for="inedita">Inédita:</label>
-                        <input type="checkbox" id="indReceitaInedita" name="indReceitaInedita">
+                        <label for="qtdePorcao"><b>Número de Porções:</b></label>
+                        <input type="number" id="qtdePorcao" name="qtdePorcao" th:value="${receita.qtdePorcao}" required>
                     </div>
-
+    
+                    <div>
+                        <label for="inedita"><b>Inédita:</b></label>
+                        <input type="checkbox" id="indReceitaInedita" name="indReceitaInedita" th:checked="${receita.indReceitaInedita}">
+                    </div>
+    
                     <button type="submit" class="save-btn">Salvar Alterações</button>
+                </div>
+                <div id="ingredient-template" style="display: none;">
+                    <div class="container-ingredientes">
+                        <div class="ingrediente-select">
+                            <select name="ingredientesIds[]">
+                                <option value="" disabled selected style="color:gray">Selecione um Ingrediente</option>
+                                <option th:each="ingrediente : ${ingredientes}" th:value="${ingrediente.id}" th:text="${ingrediente.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="ingredient-item">
+                            <input type="number" name="quantidades[]" placeholder="Qtd">
+                            <select name="medidasIds[]">
+                                <option value="" disabled selected style="color:gray">Selecione uma Medida</option>
+                                <option th:each="medida : ${medidas}" th:value="${medida.id}" th:text="${medida.nome}"></option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-sm remover-ingrediente">
+                            <i class="bi bi-dash"></i> Remover Ingrediente
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </main>
+
+    <script>
+        // Script para adicionar/remover ingredientes dinamicamente
+        document.querySelector('.add-ingrediente').addEventListener('click', function () {
+            const template = document.getElementById('ingredient-template');
+            const container = document.getElementById('ingredientes-container');
+
+            const newIngredient = template.children[0].cloneNode(true);
+
+            container.appendChild(newIngredient);
+
+            newIngredient.querySelector('.remover-ingrediente').addEventListener('click', function () {
+                container.removeChild(newIngredient);
+            });
+        });
+
+        document.querySelectorAll('.remover-ingrediente').forEach(button => {
+            button.addEventListener('click', function () {
+                const container = document.getElementById('ingredientes-container');
+                const ingredient = button.closest('.container-ingredientes');
+                container.removeChild(ingredient);
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -7,6 +7,7 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ReceitaIngredienteId implements Serializable {
+    
     private int receitaId;
     private int ingredienteId;
     private int medidaId;

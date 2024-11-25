@@ -97,14 +97,27 @@ public class ReceitaController {
         return "redirect:/dashboard/cozinheiro/receitas";
     }
 
-
-
-    // Mostrar o formulário para editar uma receita
     @GetMapping("/editar/{idreceita}")
     public String mostrarFormularioEditar(@PathVariable Long idreceita, Model model) {
+        // Buscar a receita pelo ID
         Receita receita = receitaRepository.findById(idreceita)
             .orElseThrow(() -> new IllegalArgumentException("ID de receita inválido: " + idreceita));
-        model.addAttribute("receita", receita);
+
+        // Buscar ingredientes associados à receita
+    List<ReceitaIngrediente> receitaIngredientes = receitaIngredienteRepository.findByReceitaId(idreceita);
+
+    // Buscar listas de categorias, ingredientes e medidas
+    List<Categoria> categorias = categoriaRepository.findAll();
+    List<Ingrediente> ingredientes = ingredienteRepository.findAll();
+    List<Medida> medidas = medidaRepository.findAll();
+
+    // Adicinar os atributos ao modelo
+    model.addAttribute("receita", receita);
+    model.addAttribute("categorias", categorias);
+    model.addAttribute("ingredientes", ingredientes);
+    model.addAttribute("medidas", medidas);
+    model.addAttribute("receitaIngredientes", receitaIngredientes);
+
         return "dashboard/cozinheiro/receitas/editar";
     }
 

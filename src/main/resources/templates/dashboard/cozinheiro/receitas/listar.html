@@ -175,8 +175,8 @@
                     <td th:text="${receita.qtdePorcao}"></td>
                     <td th:text="${receita.indReceitaInedita ? 'Sim' : 'Não'}"></td>
                     <td>
-                        <a th:href="@{/dashboard/cozinheiro/editar/{idreceita}(idreceita=${receita.idreceita})}">Editar</a>
-                        <a th:href="@{/dashboard/cozinheiro/excluir/{idreceita}(idreceita=${receita.idreceita})}">Excluir</a>
+                        <a th:href="@{/dashboard/cozinheiro/receitas/editar/{idreceita}(idreceita=${receita.idreceita})}">Editar</a>
+                        <a th:href="@{/dashboard/cozinheiro/editar/excluir/{idreceita}(idreceita=${receita.idreceita})}">Excluir</a>
                     </td>
                 </tr>
             </tbody>

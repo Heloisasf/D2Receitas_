@@ -31,6 +31,8 @@ public class Receita {
 
     private String modoPreparo;  // Modo de preparo da receita
 
+    private String descricao;  // Modo de preparo da receita
+
     private int qtdePorcao;  // Quantidade de porções
 
     private boolean indReceitaInedita;  // Indicador de receita inédita (tinyint(1) convertido para boolean)
@@ -90,6 +92,14 @@ public class Receita {
 
     public void setQtdePorcao(int qtdePorcao) {
         this.qtdePorcao = qtdePorcao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public boolean isIndReceitaInedita() {
