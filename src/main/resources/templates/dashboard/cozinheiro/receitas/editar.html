@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -130,6 +130,11 @@
                 <img src="./../../../../images/logo_d2.png" alt="Logo">
             </div>
         </a>
+		<a href="">
+		            <form th:action="@{/logout}" method="post">
+		                <button type="submit" style="background-color: transparent; color: white; border-color: transparent;"><i class="bi-box-arrow-right"></i> Sair</button>
+		            </form>
+		        </a>
     </header>
     <main>
         <h1>Editar Receita</h1>

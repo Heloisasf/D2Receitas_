@@ -3,6 +3,8 @@
 
 <head>
     <title>Lista de Funcionários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <meta charset="UTF-8">
     <style>
         * {
@@ -71,13 +73,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
+            width: 140px;
             height: 40px;
             background-color: #f5a623;
             color: white;
             font-size: 24px;
             border-radius: 6px 6px 6px 6px;
             text-decoration: none;
+            font-size: larger;
+            padding: 4px;
+            align-self: end;
+            margin-right: 20px;
         }
 
         .save-btn {
@@ -151,7 +157,7 @@
     </header>
     <main>
         <h1>Funcionários</h1>
-        <a href="/dashboard/administrador/funcionarios/adicionar" class="add-btn">+</a>
+        <a href="/dashboard/administrador/funcionarios/adicionar" class="add-btn">Adicionar +</a>
 
         <table>
             <thead>
@@ -174,11 +180,9 @@
                     <td th:text="${#temporals.format(funcionario.dataAdmissao, 'dd/MM/yyyy')}"></td>
                     <td th:text="${#numbers.formatDecimal(funcionario.salario, 1, 2)}"></td>
                     <td>
-                        <a th:href="@{/dashboard/administrador/funcionarios/editar/{id}(id=${funcionario.id})}"
-                            class="btn-edit">Editar</a>
-                        <a th:href="@{/dashboard/administrador/funcionarios/excluir/{id}(id=${funcionario.id})}"
-                            class="btn-delete"
-                            onclick="return confirm('Tem certeza que deseja excluir este funcionário?')">Excluir</a>
+                        <a th:href="@{/dashboard/administrador/funcionarios/editar/{id}(id=${funcionario.id})}"><i class="bi bi-pencil-fill"></i> Editar</a>
+                        <a clas="button-excluir" style="color: red; align-self: flex-end;" th:href="@{/dashboard/administrador/funcionarios/excluir/{id}(id=${funcionario.id})}"
+                        onclick="return confirm('Tem certeza que deseja excluir este funcionário?')"><i class="bi bi-trash"></i> Excluir</a>
                     </td>
                 </tr>
             </tbody>

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingredientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -72,13 +74,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
+            width: 140px;
             height: 40px;
             background-color: #f5a623;
             color: white;
             font-size: 24px;
             border-radius: 6px 6px 6px 6px;
             text-decoration: none;
+            font-size: larger;
+            padding: 4px;
+            align-self: end;
+            margin-right: 20px;
         }
 
         table {
@@ -141,7 +147,7 @@
     </header>
     <main>
         <h1>Ingredientes</h1>
-        <a href="/dashboard/administrador/ingredientes/adicionar" class="add-btn">+</a>
+        <a href="/dashboard/administrador/ingredientes/adicionar" class="add-btn">Adicionar +</a>
         <table>
             <thead>
                 <tr>
@@ -154,11 +160,10 @@
                 <tr th:each="ingrediente : ${ingredientes}">
                     <td th:text="${ingrediente.nome}"></td>
                     <td th:text="${ingrediente.descricao}"></td>
-                    <td class="actions">
-                        <a
-                            th:href="@{/dashboard/administrador/ingredientes/editar/{id}(id=${ingrediente.id})}">Editar</a>
-                        <a th:href="@{/dashboard/administrador/ingredientes/excluir/{id}(id=${ingrediente.id})}"
-                            onclick="return confirm('Tem certeza que deseja excluir este ingrediente?')">Excluir</a>
+                    <td>
+                        <a th:href="@{/dashboard/administrador/ingredientes/editar/{id}(id=${ingrediente.id})}"><i class="bi bi-pencil-fill"></i> Editar</a>
+                        <a clas="button-excluir" style="color: red; align-self: flex-end;" th:href="@{/dashboard/administrador/ingredientes/excluir/{id}(id=${ingrediente.id})}"
+                        onclick="return confirm('Tem certeza que deseja excluir este ingrediente?')"><i class="bi bi-trash"></i> Excluir</a>
                     </td>
                 </tr>
             </tbody>

@@ -22,6 +22,7 @@ import com.D2Receitas.repository.IngredienteRepository;
 import com.D2Receitas.repository.MedidaRepository;
 import com.D2Receitas.repository.ReceitaIngredienteRepository;
 import com.D2Receitas.repository.ReceitaRepository;
+import com.D2Receitas.service.ReceitaService;
 
 @Controller
 @RequestMapping("/dashboard/cozinheiro/receitas")
@@ -144,4 +145,14 @@ public class ReceitaController {
         receitaRepository.deleteById(idreceita);
         return "redirect:/dashboard/cozinheiro/receitas";
     }
+    
+   
+   // @GetMapping("/detalhes/{idreceita}")
+   // public String mostrarDetalhesReceita(@PathVariable Long idreceita, Model model) {
+        // Buscar a receita pelo serviço
+    //    Receita receita = ReceitaService.buscarPorId(idreceita);
+     //   model.addAttribute("receita", receita);
+
+       // return "detalhes"; // Nome da página HTML
+  //  }
 }

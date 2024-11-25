@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Restaurantes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -72,13 +74,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
+            width: 140px;
             height: 40px;
             background-color: #f5a623;
             color: white;
             font-size: 24px;
             border-radius: 6px 6px 6px 6px;
             text-decoration: none;
+            font-size: larger;
+            padding: 4px;
+            align-self: end;
+            margin-right: 20px;
         }
 
         table {
@@ -132,15 +138,16 @@
 </head>
 
 <body>
-    <header>
-            <div class="logo">
-                <img src="./../images/logo_d2.png" alt="Logo">
-            </div>
-    </header>
+	<header>
+	        <a href="/dashboard/administrador">
+	            <div class="logo">
+	                <img src="./../../../../images/logo_d2.png" alt="Logo">
+	            </div>
+	        </a>
+	    </header>
     <main>
         <h1>Restaurantes</h1>
-        <input type="text" placeholder="Pesquisar...">
-        <a href="/dashboard/administrador/restaurantes/adicionar" class="add-btn">+</a>
+        <a href="/dashboard/administrador/restaurantes/adicionar" class="add-btn">Adicionar +</a>
         <table>
             <thead>
                 <tr>
@@ -154,10 +161,12 @@
                     <td th:text="${restaurante.nome}"></td>
                     <td th:text="${restaurante.telefone}"></td>
                     <td>
-                        <a
-                            th:href="@{/dashboard/administrador/restaurantes/editar/{id}(id=${restaurante.id})}">Editar</a>
-                        <a th:href="@{/dashboard/administrador/restaurantes/excluir/{id}(id=${restaurante.id})}"
-                            onclick="return confirm('Tem certeza que deseja excluir este restaurante?')">Excluir</a>
+                        <a th:href="@{/dashboard/administrador/restaurantes/editar/{id}(id=${restaurante.id})}"><i
+                                class="bi bi-pencil-fill"></i> Editar</a>
+                        <a clas="button-excluir" style="color: red; align-self: flex-end;"
+                            th:href="@{/dashboard/administrador/restaurantes/excluir/{id}(id=${restaurante.id})}"
+                            onclick="return confirm('Tem certeza que deseja excluir este restaurante?')"><i
+                                class="bi bi-trash"></i> Excluir</a>
                     </td>
                 </tr>
             </tbody>

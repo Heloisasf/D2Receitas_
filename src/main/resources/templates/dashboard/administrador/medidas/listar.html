@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medidas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
          * {
             margin: 0;
@@ -71,13 +73,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
+            width: 140px;
             height: 40px;
             background-color: #f5a623;
             color: white;
             font-size: 24px;
             border-radius: 6px 6px 6px 6px;
             text-decoration: none;
+            font-size: larger;
+            padding: 4px;
+            align-self: end;
+            margin-right: 20px;
         }
 
         table {
@@ -131,14 +137,16 @@
     </style>
 </head>
 <body>
-    <header>
-            <div class="logo">
-                <img src="./../images/logo_d2.png" alt="Logo">
-        </div>
-    </header>
+	<header>
+	        <a href="/dashboard/administrador">
+	            <div class="logo">
+	                <img src="./../../../../images/logo_d2.png" alt="Logo">
+	            </div>
+	        </a>
+	    </header>
     <main>
         <h1>Medidas</h1>
-        <a href="/dashboard/administrador/medidas/adicionar" class="add-btn">+</a>
+        <a href="/dashboard/administrador/medidas/adicionar" class="add-btn">Adicionar +</a>
         <table>
             <thead>
                 <tr>
@@ -149,10 +157,10 @@
             <tbody>
                 <tr th:each="medida : ${medidas}">
                     <td th:text="${medida.nome}"></td>
-                    <td class="actions">
-                        <a th:href="@{/dashboard/administrador/medidas/editar/{id}(id=${medida.id})}">Editar</a>
-                        <a th:href="@{/dashboard/administrador/medidas/excluir/{id}(id=${medida.id})}"
-                           onclick="return confirm('Tem certeza que deseja excluir esta medida?')">Excluir</a>
+                    <td>
+                        <a th:href="@{/dashboard/administrador/medidas/editar/{id}(id=${medida.id})}"><i class="bi bi-pencil-fill"></i>Editar</a>
+                        <a clas="button-excluir" style="color: red; align-self: flex-end;" th:href="@{/dashboard/administrador/medidas/excluir/{id}(id=${medida.id})}"
+                        onclick="return confirm('Tem certeza que deseja excluir esta medida?')"><i class="bi bi-trash"></i> Excluir</a>
                     </td>
                 </tr>
             </tbody>
