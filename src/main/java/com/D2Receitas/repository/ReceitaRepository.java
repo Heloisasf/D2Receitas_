@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.D2Receitas.model.Receita;
 
-import jakarta.persistence.Embeddable;
+//import jakarta.persistence.Embeddable;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {

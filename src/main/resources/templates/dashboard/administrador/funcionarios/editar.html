@@ -127,8 +127,8 @@
                 <select id="role" th:field="*{role}" required>
                     <option value="">Selecione um cargo</option>
                     <option th:each="role : ${roles}"
-                            th:value="${role}"
-                            th:text="${role}">
+                            th:value="${role.id}"
+                            th:text="${role.nome}">
                     </option>
                 </select>
             </div>
