@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Degustação</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .receita-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background-color: #f5a623;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .voltar {
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .voltar a {
+            text-decoration: none;
+            color: #f5a623;
+            font-weight: bold;
+        }
+
+        .voltar a:hover {
+            color: #e08a00;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .rating-container {
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .stars {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            /* Inverter ordem para facilitar a lógica de preenchimento */
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* Estrelas preenchidas ao clicar */
+        .stars input:checked~label {
+            color: orange;
+        }
+
+        /* Preencher estrelas anteriores à atual ao clicar */
+        .stars input:checked~label~label {
+            color: orange;
+        }
+
+        /* Preencher ao passar o mouse */
+        .stars label:hover,
+        .stars label:hover~label {
+            color: orange;
+        }
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/dashboard/administrador">
+            <div class="logo">
+                <img src="./../../../../images/logo_d2.png" alt="Logo">
+            </div>
+        </a>
+    </header>
+    <main>
+    <br>
+    <div class="receita-container">
+        <h1 th:text="${receita.nome}"></h1>
+        <label for="data">Data de Degustação:</label>
+        <input type="date" id="data" required>
+        <div class="rating-container">
+            <label for="rating">Nota:</label>
+            <div class="stars">
+                <input type="radio" id="estrela-1" name="nota" value="1">
+                <label for="estrela-1">★</label>
+                <input type="radio" id="estrela-2" name="nota" value="2">
+                <label for="estrela-2">★</label>
+                <input type="radio" id="estrela-3" name="nota" value="3">
+                <label for="estrela-3">★</label>
+                <input type="radio" id="estrela-4" name="nota" value="4">
+                <label for="estrela-4">★</label>
+                <input type="radio" id="estrela-5" name="nota" value="5">
+                <label for="estrela-5">★</label>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="save-btn">Salvar</button>
+    </div>
+    <div class="voltar">
+        <a href="/dashboard/cozinheiro">Voltar</a>
+    </div>
+</main>
+</body>
+
+</html>

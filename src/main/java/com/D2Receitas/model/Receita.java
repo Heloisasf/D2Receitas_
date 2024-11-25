@@ -33,42 +33,20 @@ public class Receita {
     private boolean indReceitaInedita;
     
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-    
-    private String descricao;
-    
-    @ManyToMany
-    @JoinTable(
-        name = "receita_ingredientes",
-        joinColumns = @JoinColumn(name = "receita_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-    private List<Ingrediente> ingredientes;
-    
-    @ElementCollection
-    @CollectionTable(name = "receita_quantidades")
-    private List<Double> quantidades;
-    
-    @ManyToMany
-    @JoinTable(
-        name = "receita_medidas",
-        joinColumns = @JoinColumn(name = "receita_id"),
-        inverseJoinColumns = @JoinColumn(name = "medida_id")
-    )
-    private List<Medida> medidas;
-    
-    private String modoPreparo;
-    
-    @ManyToOne
-    @JoinColumn(name = "cozinheiro_id")
-    private Funcionario cozinheiro;
-    
-    private Integer qtdePorcao;
-    
-    public Long getIdreceita() {
-		return idreceita;
-	}
+    private Categoria categoria;  // Relacionamento com a entidade Categoria (id_categoria)
+
+    private String modoPreparo;  // Modo de preparo da receita
+
+    private String descricao;  // Modo de preparo da receita
+
+    private int qtdePorcao;  // Quantidade de porções
+
+    private boolean indReceitaInedita;  // Indicador de receita inédita (tinyint(1) convertido para boolean)
+
+    // Getters e setters
+    public int getIdreceita() {
+        return idreceita;
+    }
 
 	public void setIdreceita(Long idreceita) {
 		this.idreceita = idreceita;
