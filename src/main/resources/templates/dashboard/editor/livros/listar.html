@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros</title>
+    <style>
+        /* Estilos similares aos outros CRUDs */
+        .livro-container {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .actions-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-publicar {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-download {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header similar aos outros -->
+    </header>
+    
+    <main>
+        <h1>Livros de Receitas</h1>
+        <a href="/dashboard/editor/livros/criar" class="btn-criar">Criar Novo Livro</a>
+        
+        <div th:each="livro : ${livros}" class="livro-container">
+            <h2 th:text="${livro.titulo}"></h2>
+            <p>ISBN: <span th:text="${livro.isbn ?: 'Não publicado'}"></span></p>
+            <p>Data de Criação: <span th:text="${#temporals.format(livro.dataCriacao, 'dd/MM/yyyy')}"></span></p>
+            <div class="actions-buttons">
+                <form th:if="${!livro.publicado}" th:action="@{/dashboard/editor/livros/publicar/{id}(id=${livro.id})}" method="post">
+                    <button type="submit" class="btn-publicar">Publicar</button>
+                </form>
+                <button class="btn-download" 
+                        th:onclick="'window.location.href=\'/dashboard/editor/livros/download/' + ${livro.id} + '\''">
+                    Baixar
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

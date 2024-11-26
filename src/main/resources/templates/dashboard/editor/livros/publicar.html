@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Livros</title>
+    <style>
+        .livro-container {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-publicar {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Publicar Livros</h1>
+        
+        <div th:if="${livros.empty}">
+            <p>Não há livros pendentes para publicação.</p>
+        </div>
+        
+        <div th:each="livro : ${livros}" class="livro-container">
+            <h2 th:text="${livro.titulo}"></h2>
+            <p>Data de Criação: <span th:text="${#temporals.format(livro.dataCriacao, 'dd/MM/yyyy')}"></span></p>
+            <form th:action="@{/dashboard/editor/livros/publicar/{id}(id=${livro.id})}" method="post">
+                <button type="submit" class="btn-publicar">Publicar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html> 

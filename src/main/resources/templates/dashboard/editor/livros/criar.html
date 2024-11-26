@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Livro</title>
+    <style>
+        .receita-selection {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .degustacoes {
+            margin-left: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Criar Novo Livro</h1>
+        <form th:action="@{/dashboard/editor/livros/criar}" method="post">
+            <div class="form-group">
+                <label for="titulo">Título do Livro:</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+
+            <div class="receitas-container">
+                <h2>Selecione as Receitas:</h2>
+                <div th:each="receita : ${receitas}" class="receita-selection">
+                    <input type="checkbox" name="receitasIds" th:value="${receita.idreceita}" 
+                           th:id="'receita-' + ${receita.idreceita}">
+                    <label th:for="'receita-' + ${receita.idreceita}" th:text="${receita.nome}"></label>
+                    
+                    <div class="degustacoes">
+                        <h4>Degustações:</h4>
+                        <div th:each="degustacao : ${receita.degustacoes}" class="degustacao">
+                            <span th:text="${degustacao.degustador.nomeCompleto}"></span>
+                            <p>
+                                Chef: <span th:text="${degustacao.receita.cozinheiro.nomeCompleto}"></span> |
+                                Nota: <span th:text="${degustacao.nota}"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Criar Livro</button>
+        </form>
+    </main>
+</body>
+</html> 

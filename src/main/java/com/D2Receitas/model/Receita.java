@@ -2,6 +2,7 @@ package com.D2Receitas.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Table(name = "receitas")
@@ -65,6 +67,9 @@ public class Receita {
     private Funcionario cozinheiro;
     
     private Integer qtdePorcao;
+    
+    @OneToMany(mappedBy = "receita")
+    private List<Degustacao> degustacoes = new ArrayList<>();
     
     public Long getIdreceita() {
 		return idreceita;
@@ -160,5 +165,13 @@ public class Receita {
 
 	public void setQtdePorcao(Integer qtdePorcao) {
 		this.qtdePorcao = qtdePorcao;
+	}
+
+	public List<Degustacao> getDegustacoes() {
+		return degustacoes;
+	}
+
+	public void setDegustacoes(List<Degustacao> degustacoes) {
+		this.degustacoes = degustacoes;
 	}
 }
