@@ -7,11 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Receita</title>
     <style>
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
-            padding: 20px;
+        }
+
+        body {
             background-color: #f5f5f5;
         }
+
+        header {
+            background-color: #f5a623;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        main {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
         .receita-container {
             background-color: white;
@@ -46,18 +70,57 @@
 </head>
 
 <body>
+    <header>
+        <a href="/dashboard/administrador">
+            <div class="logo">
+                <img src="./../../../../images/logo_d2.png" alt="Logo">
+            </div>
+        </a>
+        <a href="">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" style="background-color: transparent; color: white; border-color: transparent;"><i
+                        class="bi-box-arrow-right"></i> Sair</button>
+            </form>
+        </a>
+    </header>
+        <br><br>
     <div class="receita-container">
         <h1 th:text="${receita.nome}"></h1>
+        <br><br>
         <p><strong>Categoria:</strong> <span th:text="${receita.categoria.nome}"></span></p>
-        <p><strong>Data de Criação:</strong> <span th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></span></p>
-        <p><strong>Número de Porções:</strong> <span th:text="${receita.qtdePorcao}"></span></p>
-        <p><strong>Modo de Preparo:</strong></p>
-        <p th:text="${receita.modoPreparo}"></p>
     </div>
+    <div class="receita-container">
+        <p><strong>Data de Criação:</strong> <span
+            th:text="${#temporals.format(receita.dataCriacao, 'dd/MM/yyyy HH:mm')}"></span></p>     
+    </div>
+    <div class="receita-container">
+        <p><strong>Número de Porções:</strong> <span th:text="${receita.qtdePorcao}"></span></p>
+    </div>
+    <div class="receita-container">
+        <p><strong>Descrição:</strong> <span th:text="${receita.descricao}"></span></p>
+    </div>
+    <div class="receita-container">
+        <p><strong>Ingredientes:</strong></p>
+        <br>
+        <ul>
+            <li th:each="ingrediente, iterStat : ${receita.ingredientes}">
+                <span th:text="${receita.quantidades[iterStat.index]}"></span> 
+                <span th:text="${receita.medidas[iterStat.index].nome}"></span> de 
+                <span th:text="${ingrediente.nome}"></span>: 
+                <span th:text="${ingrediente.descricao ?: ''}"></span>
+            </li>
+        </ul>
 
+    </div>
+    <div class="receita-container">
+        <p><strong>Modo de Preparo:</strong></p>
+        <p th:text="${receita.modoPreparo}"></p>    </div>
+
+<main>
     <div class="voltar">
         <a href="/dashboard/cozinheiro">Voltar</a>
     </div>
+</main>
 </body>
 
 </html>
