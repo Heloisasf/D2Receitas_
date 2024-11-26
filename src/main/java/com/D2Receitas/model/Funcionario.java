@@ -43,6 +43,9 @@ public class Funcionario implements UserDetails {
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    
+    @Column
+    private String nome;
 
     // Implementação dos métodos do UserDetails
     @Override
@@ -154,5 +157,13 @@ public class Funcionario implements UserDetails {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 } 

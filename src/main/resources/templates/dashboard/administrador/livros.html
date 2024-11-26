@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Livros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Gerenciamento de Livros</h2>
+        
+        <!-- Filtros -->
+        <div class="mb-4">
+            <form th:action="@{/dashboard/administrador/livros}" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <select name="status" class="form-select">
+                        <option value="">Todos os Status</option>
+                        <option value="publicado">Publicados</option>
+                        <option value="nao-publicado">Não Publicados</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="editor" class="form-control" placeholder="Buscar por Editor">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tabela de Livros -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Editor</th>
+                        <th>Data de Criação</th>
+                        <th>Status</th>
+                        <th>ISBN</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="livro : ${livros}">
+                        <td th:text="${livro.nome}"></td>
+                        <td th:text="${livro.editor.nome}"></td>
+                        <td th:text="${#temporals.format(livro.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td>
+                            <span th:if="${livro.publicado}" class="badge bg-success">Publicado</span>
+                            <span th:unless="${livro.publicado}" class="badge bg-warning">Não Publicado</span>
+                        </td>
+                        <td th:text="${livro.isbn ?: 'N/A'}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <a th:href="@{'/dashboard/administrador/baixarLivro/' + ${livro.id}}" 
+                                   class="btn btn-primary btn-sm">
+                                   <i class="bi bi-download"></i>
+                                </a>
+                                <button th:unless="${livro.publicado}"
+                                        th:onclick="'publicarLivro(' + ${livro.id} + ')'"
+                                        class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-circle"></i>
+                                </button>
+                                <button th:onclick="'excluirLivro(' + ${livro.id} + ')'"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JavaScript para confirmações -->
+    <script>
+        function publicarLivro(id) {
+            if (confirm('Deseja realmente publicar este livro?')) {
+                fetch(`/dashboard/administrador/publicarLivro/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Erro ao publicar o livro');
+                    }
+                });
+            }
+        }
+
+        function excluirLivro(id) {
+            if (confirm('Deseja realmente excluir este livro? Esta ação não pode ser desfeita.')) {
+                fetch(`/dashboard/administrador/excluirLivro/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Erro ao excluir o livro');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
