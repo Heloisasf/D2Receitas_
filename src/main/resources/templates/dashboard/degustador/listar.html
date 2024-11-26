@@ -1,193 +1,152 @@
 <!DOCTYPE html>
-<html lang="pt">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Receitas</title>
+    <title>Minhas Degustações</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        .degustacoes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        body {
-            background-color: #f5f5f5;
+        
+        .degustacao-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        header {
-            background-color: #f5a623;
+        
+        .degustacao-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            margin-bottom: 10px;
         }
-
-        .logo img {
-            height: 40px;
+        
+        .estrelas {
+            color: #ffd700;
+            font-size: 1.2rem;
         }
-
-        main {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        
+        .data {
+            color: #666;
+            font-size: 0.9rem;
         }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
+        
+        .receita-info {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
-
-        .form-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+        
+        .chef-info {
+            color: #666;
+            font-style: italic;
         }
-
-        label {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .form-group {
-            display: flex;
-            align-items: center; /* Alinha verticalmente */
-            gap: 10px; /* Espaçamento entre os elementos */
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1; /* Faz o campo de busca crescer para ocupar mais espaço */
-        }
-
-        select {
-            padding: 10px 50px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="checkbox"] {
-            margin-left: 5px; /* Ajusta o espaçamento ao lado do label */
-        }
-
-        .add-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: #f5a623;
+        
+        .add-button {
+            background-color: #4CAF50;
             color: white;
-            font-size: 24px;
-            border-radius: 6px 6px 6px 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
             text-decoration: none;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 1em;
-            font-family: Arial, sans-serif;
-        }
-
-        table th,
-        table td {
-            padding: 12px 15px;
-            border: 1px solid #dddddd;
-        }
-
-        table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-
-        table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-
-        table tbody tr:last-of-type {
-            border-bottom: 2px solid #f5a623;
-        }
-
-        table a {
-            color: #f89d0a;
-            text-decoration: none;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        table a:hover {
-            color: #e08a00;
-        }
-
-        a[href="/dashboard/degustador"] {
             display: inline-block;
-            color: #f5a623;
-            font-weight: bold;
-            text-decoration: none;
+            margin-bottom: 20px;
         }
-
-        a[href="/dashboard/degustador"]:hover {
-            color: #e08a00;
+        
+        .add-button:hover {
+            background-color: #45a049;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .actions {
+            margin-top: 10px;
+            text-align: right;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .edit-btn, .delete-btn {
+            display: inline-block;
+            padding: 5px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .edit-btn {
+            background-color: #007bff;
+        }
+        
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <a href="/dashboard/cozinheiro">
-            <div class="logo">
-                <img src="./../../images/logo_d2.png" alt="Logo">
-            </div>
+    <div class="degustacoes-container">
+        <h1>Minhas Degustações</h1>
+        
+        <a href="/dashboard/degustador/adicionar" class="add-button">
+            Nova Degustação
         </a>
-    </header>
-    <main>
-        <h1>Receitas disponíveis</h1>
-        <div class="form-group">
-        <input type="text" placeholder="Buscar receitas...">
-        <label for="category">Categoria</label>
-
-        <select id="category"></select>
-        <label for="ineditas">Inéditas</label>
-
-        <input type="checkbox" id="ineditas">
-    </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="receita : ${receitas}">
-                    <td th:text="${receita.nome}"></td>
-                    <td th:text="${receita.descricao}"></td>
-                    <td>
-                        <a th:href="@{/dashboard/degustador/adicionar/{id}(id=${receita.id})}">+</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="voltar">
-            <a href="/dashboard/degustador">Voltar ao Dashboard</a>
+        
+        <div th:if="${degustacoes.empty}" class="empty-state">
+            <p>Você ainda não realizou nenhuma degustação.</p>
         </div>
-    </main>
+        
+        <div th:each="degustacao : ${degustacoes}" class="degustacao-card">
+            <div class="degustacao-info">
+                <h2 th:text="${degustacao.receita.nome}">Nome da Receita</h2>
+                <span class="data" 
+                      th:text="${#temporals.format(degustacao.dataDegustacao, 'dd/MM/yyyy HH:mm')}">
+                    Data
+                </span>
+            </div>
+            
+            <div class="receita-info">
+                <p class="chef-info">
+                    Chef: <span th:text="${degustacao.receita.cozinheiro.nomeCompleto}">Nome do Chef</span>
+                </p>
+            </div>
+            
+            <div class="estrelas">
+                <span th:each="i : ${#numbers.sequence(1, 5)}" 
+                      th:text="${i <= degustacao.nota ? '★' : '☆'}">
+                </span>
+            </div>
+            
+            <div class="actions">
+                <a th:href="@{/dashboard/degustador/editar/{id}(id=${degustacao.id})}" 
+                   class="edit-btn">Editar</a>
+                <form th:action="@{/dashboard/degustador/excluir/{id}(id=${degustacao.id})}" 
+                      method="post" 
+                      style="display: inline;"
+                      onsubmit="return confirm('Tem certeza que deseja excluir esta degustação?');">
+                    <button type="submit" class="delete-btn">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
